@@ -5,18 +5,40 @@ A comprehensive EFI configuration for running macOS on Intel-based systems using
 
 ---
 
-## 🖥️ Real-World System Example
+## � Table of Contents
+
+- [🖥️ Real-World System Example](#️-real-world-system-example)
+- [🖥️ Hardware Compatibility](#️-hardware-compatibility)
+- [🚀 OpenCore Information](#-opencore-information)
+- [⚡ Boot Arguments](#-boot-arguments)
+- [🛠️ Installation Requirements](#️-installation-requirements)
+- [📋 What's Working](#-whats-working)
+- [🚦 What's Not Working](#-whats-not-working)
+- [⚠️ Important Notes](#️-important-notes)
+- [🔗 Quick Start](#-quick-start)
+- [🛠️ Full Installation Guide](#️-full-installation-guide)
+- [🖥️ Hardware Compatibility (Full Matrix)](#️-hardware-compatibility-full-matrix)
+- [📞 Getting Help](#-getting-help)
+- [📚 Credits](#-credits)
+- [⚖️ Disclaimer](#️-disclaimer)
+- [📄 License](#-license)
+
+---
+
+## �🖥️ Real-World System Example
 
 This EFI is **currently running** on the following hardware:
 
-- **Motherboard**: Gigabyte B360M
+- **Motherboard**: Gigabyte B360M Gaming HD
 - **CPU**: Intel Core i7-8700K (Coffee Lake, 6 cores/12 threads)
 - **RAM**: 16GB DDR4
 - **Storage**: 1TB SSD (macOS) + 3TB HDD (data)
-- **GPU**: AMD Radeon RX560 4GB
-- **WiFi**: TP-Link USB WiFi Adapter (for internet access)
+- **GPU**: Gigabyte AMD Radeon RX560 OC 4GB
+- **WiFi**: TP-Link USB WiFi Adapter (for internet access)  
+   - Driver: [Wireless-USB-Big-Sur-Adapter by chris1111](https://github.com/chris1111/Wireless-USB-Big-Sur-Adapter)
+- **Ethernet**: Inbuilt Realtek controller (native, via RealtekRTL8111.kext)
 
-Below is a screenshot of the "About This Mac" section, showing the system specs as detected by macOS:
+Below is a screenshot of the system, showing the system specs as detected by macOS:
 
 ![About This Mac Screenshot](Screenshot%202025-06-25%20at%209.39.34%E2%80%AFPM.png)
 
@@ -104,11 +126,11 @@ alcid=1 watchdog=0 agdpmod=pikera dk.e1000=0 e1000=0
 - Bluetooth connectivity
 - NVRAM functionality
 
-## ❌ What's Not Working
+## 🚦 What's Not Working
 
-❌ **Known Issues**
-- WiFi (requires compatible card or USB adapter)
-- DRM content in some applications
+**Current Limitations**
+- WiFi: Requires a compatible card or USB adapter. See the [Dortania Wireless Buyers Guide](https://dortania.github.io/Wireless-Buyers-Guide/) for recommended options.
+- DRM content may not work in some applications
 - Thunderbolt hot-plug (system dependent)
 - Some USB-C functionality (varies by hardware)
 
