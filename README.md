@@ -5,7 +5,33 @@ A comprehensive EFI configuration for running macOS on Intel-based systems using
 
 ---
 
-## �🖥️ Real-World System Example
+
+## 🖥️ Real-World System Example
+# Hackintosh EFI - Intel System with OpenCore
+
+A comprehensive EFI configuration for running macOS on Intel-based systems using OpenCore bootloader. This configuration targets **MacPro7,1** SMBIOS and supports various Intel chipsets with multiple network adapter options.
+
+---
+
+## 📑 Table of Contents
+
+- [Real-World System Example](#️-real-world-system-example)
+- [Hardware Compatibility](#️-hardware-compatibility)
+- [OpenCore Information](#-opencore-information)
+- [Boot Arguments](#-boot-arguments)
+- [Installation Requirements](#-installation-requirements)
+- [What's Working](#-whats-working)
+- [What's Not Working](#-whats-not-working)
+- [Important Notes](#-important-notes)
+- [Hardware Compatibility (Full Matrix)](#️-hardware-compatibility-full-matrix)
+- [Quick Start](#-quick-start)
+- [Full Installation Guide](#-full-installation-guide)
+- [Getting Help](#-getting-help)
+- [Credits](#-credits)
+- [Disclaimer](#-disclaimer)
+- [License](#-license)
+
+---
 
 This EFI is **currently running** on the following hardware:
 
@@ -24,28 +50,21 @@ Below is a screenshot of the system, showing the system specs as detected by mac
 
 ---
 
+
 ## 🖥️ Hardware Compatibility
 
 This EFI is designed for Intel systems with the following hardware support:
 
-### **CPU Support**
-- Intel processors with compatible chipsets
-- CPU power management via [`CPUFriend.kext`](efi/oc/Kexts/CPUFriend.kext) v1.2.9
-- Custom CPU frequency data via [`CPUFriendDataProvider.kext`](efi/oc/Kexts/CPUFriendDataProvider.kext) v1.0.0
+- **CPU Support:** Intel 6th–12th Gen (see matrix below)
+- **Motherboard Chipsets:** Z170–Z690, B360/H310 (extra patches may be needed)
+- **Network:** Intel, Realtek, Atheros (see kexts below)
+- **Graphics:** Intel iGPU (HD/UHD), AMD dGPU (RX, Vega, Navi), NVIDIA not supported
+- **Audio:** Realtek codecs (ALC887, ALC892, ALC1200, ALC1220, etc.)
+- **USB/Bluetooth:** USBInjectAll, XHCI-unsupported, BlueToolFixup
+- **Storage:** SATA (AHCI), NVMe
+- **Memory:** DDR4/DDR5
 
-### **Network Adapters**
-- **Intel Ethernet**: [`IntelMausi.kext`](efi/oc/Kexts/IntelMausi.kext) v1.0.8
-- **Atheros Ethernet**: [`AtherosE2200Ethernet.kext`](efi/oc/Kexts/AtherosE2200Ethernet.kext) v2.4.0
-- **Realtek RTL8111**: [`RealtekRTL8111.kext`](efi/oc/Kexts/RealtekRTL8111.kext) v2.5.0
-- **Intel I225-V/I226-V**: [`AppleIGC.kext`](efi/oc/Kexts/AppleIGC.kext) v1.5d1
-
-### **Graphics Support**
-- Intel integrated graphics via [`WhateverGreen.kext`](efi/oc/Kexts/WhateverGreen.kext) v1.6.9
-- AMD graphics with `agdpmod=pikera` boot argument
-
-### **Audio Support**
-- Native audio via [`AppleALC.kext`](efi/oc/Kexts/AppleALC.kext) v1.9.4
-- Layout ID: **1** (configured via `alcid=1` boot argument)
+See the [Full Matrix](#️-hardware-compatibility-full-matrix) for detailed compatibility.
 
 ## 🚀 OpenCore Information
 
@@ -132,11 +151,12 @@ Multiple network kexts are included. Disable unused ones in [`config.plist`](efi
 - Keep only the kext matching your network controller
 - Disable others by setting `Enabled` to `false`
 
+
 ## 🖥️ Hardware Compatibility (Full Matrix)
 
-**Target SMBIOS**: MacPro7,1
-**OpenCore Version**: Latest stable
-**macOS Compatibility**: Big Sur, Monterey, Ventura, Sonoma
+**Target SMBIOS**: MacPro7,1  
+**OpenCore Version**: Latest stable  
+**macOS Compatibility**: Big Sur, Monterey, Ventura, Sonoma  
 **Architecture**: Intel x86_64 only
 
 ### CPU Compatibility
@@ -153,8 +173,6 @@ Multiple network kexts are included. Disable unused ones in [`config.plist`](efi
 
 **CPU Power Management**: [`CPUFriend.kext`](efi/oc/Kexts/CPUFriend.kext) v1.2.9, [`CPUFriendDataProvider.kext`](efi/oc/Kexts/CPUFriendDataProvider.kext) v1.0.0
 
----
-
 ### Motherboard Chipsets
 
 | Chipset | Platform | LGA Socket | Status | Notes |
@@ -169,8 +187,6 @@ Multiple network kexts are included. Disable unused ones in [`config.plist`](efi
 
 **Note:** B360/H310 chipsets may require extra patches (this EFI is tested on B360M).
 
----
-
 ### Network Adapters
 
 | Controller | Kext | Version | Status | Notes |
@@ -183,8 +199,6 @@ Multiple network kexts are included. Disable unused ones in [`config.plist`](efi
 
 **WiFi:** Not included by default. Use compatible Broadcom or Intel cards (with itlwm) or USB adapters (like TP-Link).
 
----
-
 ### Graphics Support
 
 **Intel iGPU:** HD 530/630, UHD 630/750/770 (see WhateverGreen)
@@ -193,14 +207,10 @@ Multiple network kexts are included. Disable unused ones in [`config.plist`](efi
 
 **NVIDIA:** Not supported on modern macOS
 
----
-
 ### Audio Support
 
 - [`AppleALC.kext`](efi/oc/Kexts/AppleALC.kext) v1.9.4, layout ID 1 (`alcid=1`)
 - Most Realtek codecs supported (ALC887, ALC892, ALC1200, ALC1220, etc.)
-
----
 
 ### USB, Bluetooth, Storage, Memory
 
@@ -209,14 +219,10 @@ Multiple network kexts are included. Disable unused ones in [`config.plist`](efi
 - **Storage**: SATA (AHCI), NVMe supported
 - **Memory**: DDR4/DDR5, XMP/DOCP
 
----
-
 ### Hardware Limitations
 
 - **Unsupported**: AMD CPUs, NVIDIA GPUs, Intel WiFi (without extra kexts), Thunderbolt (varies), RAID
 - **Problematic**: Some B360/H310, Z690/Z790, integrated WiFi, some USB controllers
-
----
 
 ### Hardware Detection & Verification
 
