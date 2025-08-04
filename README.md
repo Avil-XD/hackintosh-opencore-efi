@@ -5,24 +5,23 @@ A comprehensive EFI configuration for running macOS on Intel-based systems using
 
 ---
 
-## � Table of Contents
+## Table of Contents
 
-- [🖥️ Real-World System Example](#️-real-world-system-example)
-- [🖥️ Hardware Compatibility](#️-hardware-compatibility)
-- [🚀 OpenCore Information](#-opencore-information)
-- [⚡ Boot Arguments](#-boot-arguments)
-- [🛠️ Installation Requirements](#️-installation-requirements)
-- [📋 What's Working](#-whats-working)
-- [🚦 What's Not Working](#-whats-not-working)
-- [⚠️ Important Notes](#️-important-notes)
-- [🔗 Quick Start](#-quick-start)
-- [🛠️ Full Installation Guide](#️-full-installation-guide)
-- [🖥️ Hardware Compatibility (Full Matrix)](#️-hardware-compatibility-full-matrix)
-- [📞 Getting Help](#-getting-help)
-- [📚 Credits](#-credits)
-- [⚖️ Disclaimer](#️-disclaimer)
-- [📄 License](#-license)
-
+- [🖥️ Real-World System Example](#real-world-system-example)
+- [🖥️ Hardware Compatibility](#hardware-compatibility)
+- [🚀 OpenCore Information](#opencore-information)
+- [⚡ Boot Arguments](#boot-arguments)
+- [🛠️ Installation Requirements](#installation-requirements)
+- [📋 What's Working](#whats-working)
+- [🚦 What's Not Working](#whats-not-working)
+- [⚠️ Important Notes](#important-notes)
+- [🔗 Quick Start](#quick-start)
+- [🛠️ Full Installation Guide](#full-installation-guide)
+- [🖥️ Hardware Compatibility (Full Matrix)](#hardware-compatibility-full-matrix)
+- [📞 Getting Help](#getting-help)
+- [📚 Credits](#credits)
+- [⚖️ Disclaimer](#disclaimer)
+- [📄 License](#license)
 ---
 
 ## �🖥️ Real-World System Example
@@ -390,25 +389,6 @@ Before asking for help, check this README, verify your hardware, and provide ful
 - **Olarila Community** - ACPI patches and configurations
 
 ---
-
-## ⚖️ Disclaimer
-
-This EFI configuration is provided as-is for educational purposes. Installing macOS on non-Apple hardware may violate Apple's Software License Agreement. Users assume all responsibility for any consequences of using this configuration. Always backup your data and understand the risks before proceeding.
-
-## 📄 License
-
-This project is released under the MIT License. See individual kext licenses for their respective terms.
-
----
-
-**Need Help?** Check the installation guide, hardware compatibility list, or consult the Hackintosh community forums for support.
-
-## 📚 Credits
-
-- **OpenCore Team** - [OpenCore](https://github.com/acidanthera/OpenCorePkg)
-- **Acidanthera** - Kext development and maintenance
-- **Dortania** - [OpenCore Install Guide](https://dortania.github.io/OpenCore-Install-Guide/)
-- **Olarila Community** - ACPI patches and configurations
 
 ## ⚖️ Disclaimer
 
