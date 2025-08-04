@@ -8,13 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Initial EFI configuration for Hackintosh setup
-- OpenCore bootloader configuration
-- Hardware-specific kexts and drivers
-- Documentation for installation and hardware compatibility
+- Repository enhancement files for professional open-source standards
+- MIT License for open-source compliance
+- Security policy (SECURITY.md) for vulnerability reporting
+- Code of Conduct for community guidelines
+- GitHub issue templates for bug reports and feature requests
+- Pull request template for standardized contributions
+- Credits and acknowledgments (CREDITS.md) for community recognition
 
 ### Changed
-- N/A
+- Enhanced repository structure for better community collaboration
+- Improved documentation organization
 
 ### Deprecated
 - N/A
@@ -26,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - N/A
 
 ### Security
+- Added comprehensive security policy and reporting procedures
 - Sanitized personal information from configuration files
 
 ## [1.0.0] - 2025-01-01
