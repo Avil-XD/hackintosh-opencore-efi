@@ -5,25 +5,6 @@ A comprehensive EFI configuration for running macOS on Intel-based systems using
 
 ---
 
-## Table of Contents
-
-- [🖥️ Real-World System Example](#real-world-system-example)
-- [🖥️ Hardware Compatibility](#hardware-compatibility)
-- [🚀 OpenCore Information](#opencore-information)
-- [⚡ Boot Arguments](#boot-arguments)
-- [🛠️ Installation Requirements](#installation-requirements)
-- [📋 What's Working](#whats-working)
-- [🚦 What's Not Working](#whats-not-working)
-- [⚠️ Important Notes](#important-notes)
-- [🔗 Quick Start](#quick-start)
-- [🛠️ Full Installation Guide](#full-installation-guide)
-- [🖥️ Hardware Compatibility (Full Matrix)](#hardware-compatibility-full-matrix)
-- [📞 Getting Help](#getting-help)
-- [📚 Credits](#credits)
-- [⚖️ Disclaimer](#disclaimer)
-- [📄 License](#license)
----
-
 ## �🖥️ Real-World System Example
 
 This EFI is **currently running** on the following hardware:
@@ -151,6 +132,106 @@ Multiple network kexts are included. Disable unused ones in [`config.plist`](efi
 - Keep only the kext matching your network controller
 - Disable others by setting `Enabled` to `false`
 
+## 🖥️ Hardware Compatibility (Full Matrix)
+
+**Target SMBIOS**: MacPro7,1
+**OpenCore Version**: Latest stable
+**macOS Compatibility**: Big Sur, Monterey, Ventura, Sonoma
+**Architecture**: Intel x86_64 only
+
+### CPU Compatibility
+
+| Generation | Architecture | Codename | Examples | Status |
+|------------|-------------|----------|----------|--------|
+| 6th Gen | Skylake | LGA1151 | i5-6600K, i7-6700K | ✅ Supported |
+| 7th Gen | Kaby Lake | LGA1151 | i5-7600K, i7-7700K | ✅ Supported |
+| 8th Gen | Coffee Lake | LGA1151 | i5-8400, i7-8700K | ✅ Supported |
+| 9th Gen | Coffee Lake-R | LGA1151 | i5-9600K, i7-9700K | ✅ Supported |
+| 10th Gen | Comet Lake | LGA1200 | i5-10400, i7-10700K | ✅ Supported |
+| 11th Gen | Rocket Lake | LGA1200 | i5-11400, i7-11700K | ✅ Supported |
+| 12th Gen | Alder Lake | LGA1700 | i5-12400, i7-12700K | ⚠️ Partial |
+
+**CPU Power Management**: [`CPUFriend.kext`](efi/oc/Kexts/CPUFriend.kext) v1.2.9, [`CPUFriendDataProvider.kext`](efi/oc/Kexts/CPUFriendDataProvider.kext) v1.0.0
+
+---
+
+### Motherboard Chipsets
+
+| Chipset | Platform | LGA Socket | Status | Notes |
+|---------|----------|------------|--------|-------|
+| Z170/H170 | Skylake | LGA1151 | ✅ Full | Stable support |
+| Z270/H270 | Kaby Lake | LGA1151 | ✅ Full | Stable support |
+| Z370/H370 | Coffee Lake | LGA1151 | ✅ Full | Stable support |
+| Z390/H370 | Coffee Lake-R | LGA1151 | ✅ Full | Recommended |
+| Z490/H470 | Comet Lake | LGA1200 | ✅ Full | Good support |
+| Z590/H570 | Rocket Lake | LGA1200 | ✅ Full | Good support |
+| Z690/H670 | Alder Lake | LGA1700 | ⚠️ Partial | Requires tuning |
+
+**Note:** B360/H310 chipsets may require extra patches (this EFI is tested on B360M).
+
+---
+
+### Network Adapters
+
+| Controller | Kext | Version | Status | Notes |
+|------------|------|---------|--------|-------|
+| I219-V/LM | [`IntelMausi.kext`](efi/oc/Kexts/IntelMausi.kext) | v1.0.8 | ✅ Native | Most common |
+| I225-V/I226-V | [`AppleIGC.kext`](efi/oc/Kexts/AppleIGC.kext) | v1.5d1 | ✅ Native | 2.5Gb Ethernet |
+| I210/I211 | [`IntelMausi.kext`](efi/oc/Kexts/IntelMausi.kext) | v1.0.8 | ✅ Native | Server grade |
+| RTL8111 | [`RealtekRTL8111.kext`](efi/oc/Kexts/RealtekRTL8111.kext) | v2.5.0 | ✅ Full | Very common |
+| AR8161/62/71 | [`AtherosE2200Ethernet.kext`](efi/oc/Kexts/AtherosE2200Ethernet.kext) | v2.4.0 | ✅ Full | Older boards |
+
+**WiFi:** Not included by default. Use compatible Broadcom or Intel cards (with itlwm) or USB adapters (like TP-Link).
+
+---
+
+### Graphics Support
+
+**Intel iGPU:** HD 530/630, UHD 630/750/770 (see WhateverGreen)
+
+**AMD dGPU:** RX 460/470/480/560/570/580, Vega, Navi (5000/6000 series) — `agdpmod=pikera` required for AMD
+
+**NVIDIA:** Not supported on modern macOS
+
+---
+
+### Audio Support
+
+- [`AppleALC.kext`](efi/oc/Kexts/AppleALC.kext) v1.9.4, layout ID 1 (`alcid=1`)
+- Most Realtek codecs supported (ALC887, ALC892, ALC1200, ALC1220, etc.)
+
+---
+
+### USB, Bluetooth, Storage, Memory
+
+- **USB**: [`USBInjectAll.kext`](efi/oc/Kexts/USBInjectAll.kext), [`XHCI-unsupported.kext`](efi/oc/Kexts/XHCI-unsupported.kext), custom mapping recommended
+- **Bluetooth**: [`BlueToolFixup.kext`](efi/oc/Kexts/BlueToolFixup.kext), works with Intel/Broadcom
+- **Storage**: SATA (AHCI), NVMe supported
+- **Memory**: DDR4/DDR5, XMP/DOCP
+
+---
+
+### Hardware Limitations
+
+- **Unsupported**: AMD CPUs, NVIDIA GPUs, Intel WiFi (without extra kexts), Thunderbolt (varies), RAID
+- **Problematic**: Some B360/H310, Z690/Z790, integrated WiFi, some USB controllers
+
+---
+
+### Hardware Detection & Verification
+
+Use System Information (About This Mac) to verify CPU, RAM, GPU, storage, and network. For command-line:
+
+```bash
+sysctl -n machdep.cpu.brand_string
+system_profiler SPDisplaysDataType
+system_profiler SPAudioDataType
+system_profiler SPNetworkDataType
+system_profiler SPUSBDataType
+```
+
+---
+
 ## 🔗 Quick Start
 
 1. **Download**: Clone or download this repository
@@ -269,8 +350,6 @@ Multiple network kexts are included. Disable unused ones in [`config.plist`](efi
 | Graphics accel issues | Check WhateverGreen config |
 
 ---
-
-## 🖥️ Hardware Compatibility (Full Matrix)
 
 **Target SMBIOS**: MacPro7,1  
 **OpenCore Version**: Latest stable  
